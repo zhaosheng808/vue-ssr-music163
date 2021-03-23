@@ -8,6 +8,9 @@ function fetch(url, Data, method = 'GET') {
     return new Promise((resolve, reject) => {
         axios({
             url: 'http://localhost:8080/api',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
             data,
             params,
             method,
@@ -25,6 +28,7 @@ function fetch(url, Data, method = 'GET') {
 export function fetchIdsByType(type) {
     return fetch(`${type}stories`)
 }
+
 export function fetchListByType(type) {
     const currentNav = navArr.find(item => item.value == type) || {};
     const params = {
@@ -43,20 +47,4 @@ export function fetchItems(ids) {
 
 export function fetchUser(id) {
     return fetch(`user/${id}`)
-}
-
-export function watchList(type, cb) {
-    // let first = true
-    // const ref = api.child(`${type}stories`)
-    // const handler = snapshot => {
-    //   if (first) {
-    //     first = false
-    //   } else {
-    //     cb(snapshot.val())
-    //   }
-    // }
-    // ref.on('value', handler)
-    // return () => {
-    //   ref.off('value', handler)
-    // }
 }
