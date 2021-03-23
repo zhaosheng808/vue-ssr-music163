@@ -1,4 +1,5 @@
-export function host (url) {
+import moment from 'moment';
+export function host (url = '') {
   const host = url.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
   const parts = host.split('.').slice(-3)
   if (parts[0] === 'www') parts.shift()
@@ -14,6 +15,9 @@ export function timeAgo (time) {
   } else {
     return pluralize(~~(between / 86400), ' day')
   }
+}
+export function timeFormat (time) {
+  return moment(time).format('YYYY-MM-DD');
 }
 
 function pluralize (time, label) {

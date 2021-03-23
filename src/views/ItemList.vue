@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { watchList } from '../api'
 import Item from '../components/Item.vue'
 
 export default {
@@ -56,19 +55,13 @@ export default {
 
   beforeMount () {
     if (this.$root._isMounted) {
+      console.log('beforeMount')
       this.loadItems(this.page)
     }
-    // watch the current list for realtime updates
-    this.unwatchList = watchList(this.type, ids => {
-      this.$store.commit('SET_LIST', { type: this.type, ids })
-      this.$store.dispatch('ENSURE_ACTIVE_ITEMS').then(() => {
-        this.displayedItems = this.$store.getters.activeItems
-      })
-    })
   },
 
   beforeDestroy () {
-    this.unwatchList()
+    // this.unwatchList()
   },
 
   watch: {
@@ -79,6 +72,7 @@ export default {
 
   methods: {
     loadItems (to = this.page, from = -1) {
+      console.log('loadItems')
       this.$bar.start()
       this.$store.dispatch('FETCH_LIST_DATA', {
         type: this.type

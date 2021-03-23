@@ -46,6 +46,8 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   )
 
   // dev middleware
+  // 在client webpack结合vue-ssr-webpack-plugin完成编译后，获取devMiddleware的fileSystem
+  // 读取内存中的bundle 并通过传入的回调更新server.js中的bundle
   const clientCompiler = webpack(clientConfig)
   const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
     publicPath: clientConfig.output.publicPath,
@@ -71,6 +73,7 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   const serverCompiler = webpack(serverConfig)
   const mfs = new MFS()
   serverCompiler.outputFileSystem = mfs
+  // 设置文件重新编译监听并通过传入的回调更新server.js中的bundle
   serverCompiler.watch({}, (err, stats) => {
     if (err) throw err
     stats = stats.toJson()

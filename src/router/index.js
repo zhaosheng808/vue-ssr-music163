@@ -14,11 +14,12 @@ export function createRouter () {
     fallback: false,
     scrollBehavior: () => ({ y: 0 }),
     routes: [
-      { path: '/top/:page(\\d+)?', component: createListView('top') },
-      { path: '/new/:page(\\d+)?', component: createListView('new') },
-      { path: '/show/:page(\\d+)?', component: createListView('show') },
-      { path: '/ask/:page(\\d+)?', component: createListView('ask') },
-      { path: '/job/:page(\\d+)?', component: createListView('job') },
+      { path: '/all/:page(\\d+)?', component: createListView('all') },
+      { path: '/chinese/:page(\\d+)?', component: createListView('chinese') },
+      { path: '/ancient/:page(\\d+)?', component: createListView('ancient') },
+      { path: '/west/:page(\\d+)?', component: createListView('west') },
+      { path: '/popular/:page(\\d+)?', component: createListView('popular') },
+      { path: '/rock/:page(\\d+)?', component: createListView('rock') },
       { path: '/item/:id(\\d+)', component: ItemView },
       { path: '/user/:id', component: UserView },
       { path: '/', redirect: '/top' }

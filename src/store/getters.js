@@ -12,12 +12,15 @@ export default {
     const start = (page - 1) * itemsPerPage
     const end = page * itemsPerPage
 
+    // console.log('lists', lists)
+    // console.log('activeType', activeType)
+    // console.log(lists[activeType], 'lists[activeType]')
     return lists[activeType].slice(start, end)
   },
 
   // items that should be currently displayed.
   // this Array may not be fully fetched.
   activeItems (state, getters) {
-    return getters.activeIds.map(id => state.items[id]).filter(_ => _)
+    return getters.activeIds
   }
 }

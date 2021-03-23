@@ -5,11 +5,12 @@
         <router-link to="/" exact>
           <img class="logo" src="~public/logo-48.png" alt="logo">
         </router-link>
-        <router-link to="/top">Top</router-link>
-        <router-link to="/new">New</router-link>
-        <router-link to="/show">Show</router-link>
-        <router-link to="/ask">Ask</router-link>
-        <router-link to="/job">Jobs</router-link>
+        <router-link to="/all">全部歌单</router-link>
+        <router-link to="/chinese">华语</router-link>
+        <router-link to="/ancient">古风</router-link>
+        <router-link to="/west">欧美</router-link>
+        <router-link to="/popular">流行</router-link>
+        <router-link to="/rock">摇滚</router-link>
         <a class="github" href="https://github.com/vuejs/vue-hackernews-2.0" target="_blank" rel="noopener">
           Built with Vue.js
         </a>
@@ -62,7 +63,7 @@ a
     &.router-link-active
       color #fff
       font-weight 400
-    &:nth-child(6)
+    &:nth-child(7)
       margin-right 0
   .github
     color #fff

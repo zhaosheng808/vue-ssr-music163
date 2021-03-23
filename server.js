@@ -5,6 +5,7 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const microcache = require('route-cache')
+const axios = require('axios');
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
@@ -18,6 +19,7 @@ const app = express()
 
 function createRenderer (bundle, options) {
   // https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
+  // 调用vue-server-renderer的createBundleRenderer方法创建渲染器，并设置HTML模板，以后后续将服务端预取的数据填充至模板中
   return createBundleRenderer(bundle, Object.assign(options, {
     // for component caching
     cache: LRU({
@@ -50,6 +52,9 @@ if (isProd) {
 } else {
   // In development: setup the dev server with watch and hot-reload,
   // and create a new renderer on bundle / index template update.
+  // 开发环境下，使用dev-server来通过回调把生成在内存中的bundle文件传回
+  // 通过dev server的webpack-dev-middleware和webpack-hot-middleware实现客户端代码的热更新
+  // 以及通过webpack的watch功能实现服务端代码的热更新
   readyPromise = require('./build/setup-dev-server')(
     app,
     templatePath,
@@ -101,6 +106,7 @@ function render (req, res) {
     title: 'Vue HN 2.0', // default title
     url: req.url
   }
+  // 为渲染器绑定的server bundle（即entry-server.js）设置入参context
   renderer.renderToString(context, (err, html) => {
     if (err) {
       return handleError(err)
@@ -111,6 +117,21 @@ function render (req, res) {
     }
   })
 }
+const data = require('./data.json')
+app.get('/api', (req, res) => {
+  // axios.get('http://musicapi.leanapp.cn/dj/hot').then(resp => {
+  axios.get('http://musicapi.leanapp.cn/top/playlist/highquality', {
+    params: {
+      ...req.query
+    }
+  }).then(resp => {
+    // console.log('resp.data', resp.data);
+    const musicapiData = resp.data.playlists;
+    res.json(musicapiData);
+    // res.json(data.list);
+  })
+
+});
 
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
