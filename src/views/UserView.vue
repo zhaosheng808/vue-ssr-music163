@@ -4,7 +4,7 @@
       <div class="avatar-box">
         <img :src="user.profile.avatarUrl" alt="">
       </div>
-      <h1>User : {{ user.profile.nickname }}</h1>
+      <h1>{{ user.profile.nickname }}</h1>
       <ul class="meta">
         <li><span class="label">Created:</span> {{ user.profile.createTime | timeFormat }}</li>
         <li><span class="label">Birthday:</span> {{ user.profile.birthday | timeFormat }}</li>

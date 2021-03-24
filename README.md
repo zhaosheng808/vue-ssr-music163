@@ -1,15 +1,17 @@
 # vue-ssr-music163
 
-HackerNews clone built with Vue 2.0 + vue-router + vuex, with server-side rendering.
-
-vue-ssr-music163 clone built with HackerNews, with NeteaseCloudMusicApi.
+本项目为`vue-ssr`学习实践项目，使用 [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0/) 项目修改而成，
+并使用 [网易云音乐API](https://binaryify.github.io/NeteaseCloudMusicApi/#/) 提供数据接口获取数据
 
 
 ## Architecture Overview
 
 <img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://cloud.githubusercontent.com/assets/499550/17607895/786a415a-5fee-11e6-9c11-45a2cfdf085c.png">
 
+
 **A detailed Vue SSR guide can be found [here](https://ssr.vuejs.org).**
+
+**A detailed vue-hackernews-2.0 guide can be found [here](https://github.com/vuejs/vue-hackernews-2.0/).**
 
 ## Build Setup
 
@@ -34,3 +36,18 @@ npm start
 MIT
 
 [网易云音乐API](https://binaryify.github.io/NeteaseCloudMusicApi/#/)
+
+
+## 项目截图
+
+列表页
+
+![列表页](./public/pic1.jpg)
+
+详情页
+
+![详情页](./public/pic2.jpg)
+
+用户详情页
+
+![用户详情页](./public/pic3.jpg)

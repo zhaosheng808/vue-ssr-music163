@@ -2,10 +2,14 @@ let express = require('express');
 let router = express.Router();
 let axios = require('axios');
 
-module.exports = function(config) {
+// 网易云音乐接口地址 https://binaryify.github.io/NeteaseCloudMusicApi/#/
+const neteaseCloudMusicApiAddress = 'http://musicapi.leanapp.cn';
+
+// 只是单纯的将接口转发到网易云 获取网易云提供的数据
+module.exports = function () {
     // const data = require('../data.json')
     router.get('/playlist', (req, res) => {
-        axios.get('http://musicapi.leanapp.cn/top/playlist/highquality', {
+        axios.get(neteaseCloudMusicApiAddress + '/top/playlist/highquality', {
             params: {
                 ...req.query
             }
@@ -15,7 +19,7 @@ module.exports = function(config) {
         })
     });
     router.get('/playlist/detail', (req, res) => {
-        axios.get('http://musicapi.leanapp.cn/playlist/detail', {
+        axios.get(neteaseCloudMusicApiAddress + '/playlist/detail', {
             params: {
                 ...req.query
             }
@@ -26,7 +30,7 @@ module.exports = function(config) {
     });
 
     router.get('/comment/playlist', (req, res) => {
-        axios.get('http://musicapi.leanapp.cn/comment/playlist', {
+        axios.get(neteaseCloudMusicApiAddress + '/comment/playlist', {
             params: {
                 ...req.query
             }
@@ -37,7 +41,7 @@ module.exports = function(config) {
     });
 
     router.get('/user/detail', (req, res) => {
-        axios.get('http://musicapi.leanapp.cn/user/detail', {
+        axios.get(neteaseCloudMusicApiAddress + '/user/detail', {
             params: {
                 ...req.query
             }
