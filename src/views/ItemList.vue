@@ -55,8 +55,8 @@ export default {
 
   beforeMount () {
     if (this.$root._isMounted) {
-      console.log('beforeMount')
-      this.loadItems(this.page)
+      // console.log('beforeMount')
+      // this.loadItems(this.page)
     }
   },
 
@@ -66,13 +66,13 @@ export default {
 
   watch: {
     page (to, from) {
+      // entry-client.js 中 beforeRouteUpdate 会执行加载 asyncData请求数据
       this.loadItems(to, from)
     }
   },
 
   methods: {
     loadItems (to = this.page, from = -1) {
-      console.log('loadItems')
       this.$bar.start()
       this.$store.dispatch('FETCH_LIST_DATA', {
         type: this.type

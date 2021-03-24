@@ -20,9 +20,10 @@ export function createRouter () {
       { path: '/west/:page(\\d+)?', component: createListView('west') },
       { path: '/popular/:page(\\d+)?', component: createListView('popular') },
       { path: '/rock/:page(\\d+)?', component: createListView('rock') },
+
       { path: '/item/:id(\\d+)', component: ItemView },
       { path: '/user/:id', component: UserView },
-      { path: '/', redirect: '/top' }
+      { path: '/', redirect: '/all' }
     ]
   })
 }

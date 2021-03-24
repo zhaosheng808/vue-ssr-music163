@@ -3,24 +3,24 @@
     <template v-if="item">
       <div class="item-view-header">
         <a :href="item.url" target="_blank">
-          <h1>{{ item.title }}</h1>
+          <h1>{{ item.name }}</h1>
         </a>
         <span v-if="item.url" class="host">
-          ({{ item.url | host }})
+          ({{ item.coverImgUrl | host }})
         </span>
         <p class="meta">
-          {{ item.score }} points
-          | by <router-link :to="'/user/' + item.by">{{ item.by }}</router-link>
-          {{ item.time | timeAgo }} ago
+          {{ item.shareCount }} shareCount
+          | by <router-link :to="'/user/' + item.userId">{{ item.creator.nickname }}</router-link>
+          {{ item.createTime | timeFormat }}
         </p>
       </div>
       <div class="item-view-comments">
         <p class="item-view-comments-header">
-          {{ item.kids ? item.descendants + ' comments' : 'No comments yet.' }}
+          {{ comments ? comments.total + ' comments' : 'No comments yet.' }}
           <spinner :show="loading"></spinner>
         </p>
         <ul v-if="!loading" class="comment-children">
-          <comment v-for="id in item.kids" :key="id" :id="id"></comment>
+          <comment v-for="commentItem in comments.comments" :key="commentItem.commentId" :id="commentItem.commentId"></comment>
         </ul>
       </div>
     </template>
@@ -41,7 +41,10 @@ export default {
 
   computed: {
     item () {
-      return this.$store.state.items[this.$route.params.id]
+      return this.$store.state.item
+    },
+    comments() {
+      return this.$store.state.comments
     }
   },
 
@@ -49,11 +52,11 @@ export default {
   // it might take a long time to load threads with hundreds of comments
   // due to how the HN Firebase API works.
   asyncData ({ store, route: { params: { id }}}) {
-    return store.dispatch('FETCH_ITEMS', { ids: [id] })
+    return store.dispatch('FETCH_ITEM', { id: id })
   },
 
   title () {
-    return this.item.title
+    return this.item ? this.item.name : ''
   },
 
   // Fetch comments when mounted on the client
@@ -68,10 +71,9 @@ export default {
 
   methods: {
     fetchComments () {
-      if (!this.item || !this.item.kids) {
+      if (!this.item) {
         return
       }
-
       this.loading = true
       fetchComments(this.$store, this.item).then(() => {
         this.loading = false
@@ -82,12 +84,10 @@ export default {
 
 // recursively fetch all descendent comments
 function fetchComments (store, item) {
-  if (item && item.kids) {
-    return store.dispatch('FETCH_ITEMS', {
-      ids: item.kids
-    }).then(() => Promise.all(item.kids.map(id => {
-      return fetchComments(store, store.state.items[id])
-    })))
+  if (item && item.id) {
+    return store.dispatch('FETCH_COMMENTS', {
+      id: item.id
+    })
   }
 }
 </script>

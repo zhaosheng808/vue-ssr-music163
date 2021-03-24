@@ -11,7 +11,9 @@ export function createStore () {
     state: {
       activeType: null,
       itemsPerPage: 10,
-      items: [],
+      items: [], // 当前页面展现的数据
+      item: {},
+      comments: {},
       users: {/* [id: string]: User */},
       lists: {
         top: [/* number */],

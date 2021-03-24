@@ -5,7 +5,6 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const microcache = require('route-cache')
-const axios = require('axios');
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
@@ -117,21 +116,10 @@ function render (req, res) {
     }
   })
 }
-const data = require('./data.json')
-app.get('/api', (req, res) => {
-  // axios.get('http://musicapi.leanapp.cn/dj/hot').then(resp => {
-  axios.get('http://musicapi.leanapp.cn/top/playlist/highquality', {
-    params: {
-      ...req.query
-    }
-  }).then(resp => {
-    // console.log('resp.data', resp.data);
-    const musicapiData = resp.data.playlists;
-    res.json(musicapiData);
-    // res.json(data.list);
-  })
 
-});
+// api
+app.use('/api', require('./routes/api')());
+
 
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))

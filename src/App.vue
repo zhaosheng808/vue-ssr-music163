@@ -30,7 +30,7 @@ body
   margin 0
   padding-top 55px
   color #34495e
-  overflow-y scroll
+  overflow-y auto
 
 a
   color #34495e
