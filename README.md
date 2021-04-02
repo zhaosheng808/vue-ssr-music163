@@ -51,3 +51,9 @@ MIT
 用户详情页
 
 ![用户详情页](./public/pic3.jpg)
+
+## 源码地址
+
+[https://github.com/zhaosheng808/vue-ssr-music163.git](https://github.com/zhaosheng808/vue-ssr-music163.git)
+
+[https://gitee.com/zhaosheng123/vue-ssr-music163.git](https://gitee.com/zhaosheng123/vue-ssr-music163.git)
